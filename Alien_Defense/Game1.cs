@@ -11,6 +11,7 @@ namespace Alien_Defense
 
         public Game1()
         {
+            //CheckGit
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
