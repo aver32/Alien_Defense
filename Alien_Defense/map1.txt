@@ -4,7 +4,7 @@
 #  R        #
 #  RRRRRTT  #
 #     TR    #
-#      R    #
+#      RRRR #
 #      R   T#
 #      RRRRR#
 #############
