@@ -2,92 +2,76 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Alien_Defense.Model;
 
+//Набор свойств и полей
+//Методы изменения свойств и полей
 internal class Field
 {
-    public readonly FieldCell[,] Cells;
-    public readonly Cell[,] Cells3;
-    public readonly List<Cell> Cells2;
-    public readonly List<TowerCell> Towers = new List<TowerCell>();
-    public readonly HashSet<TowerCell> towerCells;
-    public event Func<TowerCell> addTowerEvent;
-    private readonly int cellSpriteSize = 64;
-    public Field(FieldCell[,] cells)
+    public readonly ICell[,] StaticCells;
+    public HashSet<Tower> Towers = new HashSet<Tower>();
+    public HashSet<TowerCell> TowerCells;
+    public static Vector2 firstRoute;
+    public static List<ICell> RoutesCells = new List<ICell>();
+    public static Rectangle initPos;
+    public static int cellSpriteSize;
+    private static string levelFilePath = "Maps\\";
+    public Field(ICell[,] staticCells, HashSet<TowerCell> towerCells)
     {
-        Cells = cells;
-        Cells3 = new Cell[cells.GetLength(0), cells.GetLength(1)];
-        towerCells = new HashSet<TowerCell>();
-        Cells2 = new List<Cell>();
-        var width = Cells.GetLength(0);
-        var height = Cells.GetLength(1);
-        for (var x = 0; x < width; x++)
-            for (var y = 0; y < height; y++)
-            {
-                Rectangle position = new Rectangle(x * cellSpriteSize, y * cellSpriteSize,
-                                                cellSpriteSize, cellSpriteSize);
-
-                if (Cells[x, y] == FieldCell.Tower)
-                {
-                    Cells3[x, y] = new Cell(position, CellState.TowerCell);
-                }
-                else if (Cells[x, y] == FieldCell.Route)
-                {
-                    Cells3[x, y] = new Cell(position, CellState.Route);
-                }
-                else
-                    Cells3[x,y] = new Cell(position, CellState.Background);
-                
-
-
-            }
-        var d = Cells3.Length;
+        StaticCells = staticCells;
+        TowerCells = towerCells;
     }
-    public void AddTowerEvent(Func<TowerCell> addTowerEvent)
+    public static Field FromText(string mapName)
     {
-        this.addTowerEvent += addTowerEvent;
-        AddTower();
-    }
-    private void AddTower()
-    {
-        var tower = addTowerEvent?.Invoke();
-        Towers.Add(tower);
-        addTowerEvent = null;
-    }
-    public static Field FromText(string text)
-    {
+        mapName = levelFilePath + mapName  + ".txt";
+        var text = File.ReadAllText(mapName);
         var lines = text.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
         return FromLines(lines);
     }
     public static Field FromLines(string[] lines)
     {
-        var field = new FieldCell[lines[0].Length, lines.Length];
-        for (var y = 0; y < lines.Length; y++)
-        {
-            for (var x = 0; x < lines[0].Length; x++)
+        var staticCells = new ICell[lines[0].Length, lines.Length];
+        var towerCells = new HashSet<TowerCell>();
+        var width = staticCells.GetLength(0);
+        var height = staticCells.GetLength(1);
+        for (var x = 0; x < width; x++)
+            for (var y = 0; y < height; y++)
             {
+                Rectangle position = new Rectangle(x * cellSpriteSize, y * cellSpriteSize,
+                                                cellSpriteSize, cellSpriteSize);
                 switch (lines[y][x])
                 {
                     case '#':
-                        field[x, y] = FieldCell.Back;
+                        staticCells[x, y] = new Cell(position, CellState.Wall);
+                        break;
+                    case 'I':
+                        staticCells[x, y] = new Cell(position, CellState.Route);
+                        initPos = position;
+                        break;
+                    case 'P':
+                        staticCells[x, y] = new Cell(position, CellState.Route);
+                        RoutesCells.Add(new Cell(position, CellState.Route));
                         break;
                     case 'R':
-                        field[x, y] = FieldCell.Route;
+                        staticCells[x, y] = new Cell(position, CellState.Rocket);
                         break;
                     case 'T':
-                        field[x, y] = FieldCell.Tower;
+                        staticCells[x, y] = new TowerCell(position, CellState.TowerCellFree);
+                        towerCells.Add(new TowerCell(position, CellState.TowerCellFree));
                         break;
                     default:
-                        field[x, y] = FieldCell.Back;
+                        staticCells[x, y] = new Cell(position, CellState.Wall);
                         break;
                 }
             }
-        }
-        return new Field(field);
+
+        return new Field(staticCells, towerCells);
     }
 }
 

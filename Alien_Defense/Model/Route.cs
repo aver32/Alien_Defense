@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace Alien_Defense.Model
 {
-    internal class TowerCell : Cell
+    internal class Route : Cell
     {
-        public Tower Tower;
-        public TowerCell(Rectangle pos, CellState state, Tower tower = null) 
+        public Route(Rectangle pos, CellState state)
             : base(pos, state)
         {
-            Tower = tower;
+
         }
     }
 }
