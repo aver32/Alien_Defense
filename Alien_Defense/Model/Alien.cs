@@ -1,23 +1,27 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Alien_Defense.Model
 {
-    public class Alien
+    internal class Alien
     {
-        public int Health { get; }
-        public int Damage { get; }
-        public float MoveSpeed { get; }
-        public Vector2 InitialPosition { get; }
-        public Vector2 CurrentPosition { get; private set; }
-        public Alien(Vector2 initialPosition)
-        {
-            Health = 50;
-            Damage = 25;
-            MoveSpeed = 3;
+        public List<Rectangle> path = new List<Rectangle>();
+        public int currentPathIndex;
+        public Vector2 currentPosition;
+        private double _damage;
+        public float speed;
 
-            InitialPosition = initialPosition;
-            CurrentPosition = InitialPosition;
+        public Alien(Vector2 initPos, List<Rectangle> alienPath, double damage, float speed)
+        {
+            currentPosition = initPos;
+            path = alienPath;
+            this.speed = speed;
+            _damage = damage;
         }
     }
 }

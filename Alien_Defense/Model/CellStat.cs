@@ -8,9 +8,10 @@ namespace Alien_Defense.Model
 {
     public enum CellState
     {
-        Background,
-        TowerCell,
-        CellWithTower,
+        Wall,
+        TowerCellFree,
+        TowerCellOcup,
+        Rocket,
         Route
     }
 }

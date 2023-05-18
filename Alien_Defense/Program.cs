@@ -1,3 +1,3 @@
 ﻿
-using var game = new Alien_Defense.Game1();
+using var game = new Alien_Defense.GameCycle();
 game.Run();
