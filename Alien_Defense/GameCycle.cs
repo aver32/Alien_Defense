@@ -37,8 +37,8 @@ public class GameCycle : Game
     {
         _graphics = new GraphicsDeviceManager(this)
         {
-            PreferredBackBufferHeight = 1080,
-            PreferredBackBufferWidth = 1920,
+            PreferredBackBufferHeight = 980,
+            PreferredBackBufferWidth = 1800,
             IsFullScreen = false,
         };
         Content.RootDirectory = "Content";
