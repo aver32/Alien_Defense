@@ -16,7 +16,7 @@ namespace Alien_Defense.View
     internal class TowerView : IEnemyView
     {
         private Texture2D _tower;
-        private string _assetTowerName = "towerPosBase";
+        private string _assetTowerName = "tower";
         /// <summary>
         /// Метод загрузки контента
         /// </summary>
