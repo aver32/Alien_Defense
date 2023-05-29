@@ -11,28 +11,28 @@ using System.Threading.Tasks;
 namespace Alien_Defense.View
 {
     /// <summary>
-    /// Класс отображения заднего фона
+    /// Класс отображения башни
     /// </summary>
-    public class BackgroundView
+    internal class TowerView : IEnemyView
     {
-        public Texture2D BackgroundTexture { get;private set; }
-        private string _assetName = "back";
+        private Texture2D _tower;
+        private string _assetTowerName = "towerPosBase";
         /// <summary>
         /// Метод загрузки контента
         /// </summary>
         /// <param name="content"> контент менеджер</param>
         public void LoadContent(ContentManager content)
         {
-            BackgroundTexture = content.Load<Texture2D>(_assetName);
+            _tower = content.Load<Texture2D>(_assetTowerName);
         }
         /// <summary>
-        /// Метод отрисовки заднего фона
+        /// Метод отрисовки
         /// </summary>
         /// <param name="spriteBatch"> Кисть </param>
-        /// <param name="graphicsDevice"> Графический девайс</param>
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        /// <param name="towerPosBase"> башня </param>
+        public void Draw(SpriteBatch spriteBatch, PositionBase towerPosBase)
         {
-            spriteBatch.Draw(BackgroundTexture, graphicsDevice.Viewport.Bounds, Color.White);
+            spriteBatch.Draw(_tower, towerPosBase.PositionBas, Color.White);
         }
     }
 }

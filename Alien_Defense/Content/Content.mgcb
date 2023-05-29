@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../OneDrive/Рабочий стол/alien.png;alien.png
 
+#begin ../../../../../OneDrive/Рабочий стол/button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../OneDrive/Рабочий стол/button.png;button.png
+
 #begin ../../../../../OneDrive/Рабочий стол/tower.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -37,7 +49,7 @@
 /processorParam:TextureFormat=Color
 /build:../../../../../OneDrive/Рабочий стол/tower.jpg;tower.jpg
 
-#begin ball.png
+#begin buttonLevel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ball.png
+/build:buttonLevel.png
 
-#begin Chest.png
+#begin buttonTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +71,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Chest.png
+/build:buttonTower.png
+
+#begin fireball.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:fireball.png
 
 #begin ground_texture.png
 /importer:TextureImporter
@@ -85,7 +109,7 @@
 /processorParam:TextureFormat=Color
 /build:ground.jpg
 
-#begin illustration6.png
+#begin healthbar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,7 +119,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:illustration6.png;back.png
+/build:healthbar.png
 
 #begin myfont.spritefont
 /importer:FontDescriptionImporter

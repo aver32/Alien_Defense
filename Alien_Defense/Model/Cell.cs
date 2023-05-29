@@ -5,14 +5,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Alien_Defense.Model
 {
-    public class Cell : ICell
+    /// <summary>
+    /// Основной класс клетки поля
+    /// </summary>
+    public class Cell : PositionBase, ICell
     {
-        public Rectangle Position { get; set; }
+        public Rectangle Rectangle { get; set; }
+        public override Vector2 PositionBas { get => new Vector2(Rectangle.X, Rectangle.Y); internal set { } } 
         public Texture2D Texture { get; set; }
         public CellState State { get; set; }
         public Cell(Rectangle pos, CellState state) 
         {
-            Position = pos;
+            Rectangle = pos;
             State = state;
         }
     }

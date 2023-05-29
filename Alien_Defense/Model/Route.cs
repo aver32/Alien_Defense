@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Alien_Defense.Model
 {
+    /// <summary>
+    /// Класс клетки дороги
+    /// </summary>
     internal class Route : Cell
     {
         public Route(Rectangle pos, CellState state)

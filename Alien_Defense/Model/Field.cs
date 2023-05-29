@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Alien_Defense.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,36 +11,45 @@ using System.Threading.Tasks;
 
 namespace Alien_Defense.Model;
 
-//Набор свойств и полей
-//Методы изменения свойств и полей
-internal class Field
+/// <summary>
+/// Класс поля, хранящий клетки и ракету
+/// </summary>
+public class Field
 {
-    public readonly ICell[,] StaticCells;
-    public HashSet<Tower> Towers = new HashSet<Tower>();
+    public ICell[,] AllCells;
+    public HashSet<ITower> Towers = new HashSet<ITower>();
     public HashSet<TowerCell> TowerCells;
-    public static Vector2 firstRoute;
-    public static List<ICell> RoutesCells = new List<ICell>();
-    public static Rectangle initPos;
-    public static int cellSpriteSize;
-    private static string levelFilePath = "Maps\\";
-    public Field(ICell[,] staticCells, HashSet<TowerCell> towerCells)
+    public List<ICell> RoutesCells = new List<ICell>();
+    public CellCoordinatesArray initAlienPos;
+    public int cellSpriteSize = 64;
+    private string levelFilePath = "Maps\\";
+    public Rocket Rocket;
+    public CellCoordinatesArray rocketPos;
+    public Field(string lvlName)
     {
-        StaticCells = staticCells;
-        TowerCells = towerCells;
+        FromText(lvlName);
     }
-    public static Field FromText(string mapName)
+    /// <summary>
+    /// Метод получения уровня из файла
+    /// </summary>
+    /// <param name="mapName"> названия файла </param>
+    public void FromText(string mapName)
     {
-        mapName = levelFilePath + mapName  + ".txt";
+        mapName = levelFilePath + mapName + ".txt";
         var text = File.ReadAllText(mapName);
         var lines = text.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-        return FromLines(lines);
+        FromLines(lines);
     }
-    public static Field FromLines(string[] lines)
+    /// <summary>
+    /// Метод построения карты из файла
+    /// </summary>
+    /// <param name="lines"> массив строк </param>
+    public void FromLines(string[] lines)
     {
-        var staticCells = new ICell[lines[0].Length, lines.Length];
+        var allCells = new ICell[lines[0].Length, lines.Length];
         var towerCells = new HashSet<TowerCell>();
-        var width = staticCells.GetLength(0);
-        var height = staticCells.GetLength(1);
+        var width = allCells.GetLength(0);
+        var height = allCells.GetLength(1);
         for (var x = 0; x < width; x++)
             for (var y = 0; y < height; y++)
             {
@@ -48,30 +58,33 @@ internal class Field
                 switch (lines[y][x])
                 {
                     case '#':
-                        staticCells[x, y] = new Cell(position, CellState.Wall);
+                        allCells[x, y] = new Cell(position, CellState.Wall);
                         break;
                     case 'I':
-                        staticCells[x, y] = new Cell(position, CellState.Route);
-                        initPos = position;
+                        allCells[x, y] = new Cell(position, CellState.Route);
+                        initAlienPos = new CellCoordinatesArray(x, y);
                         break;
                     case 'P':
-                        staticCells[x, y] = new Cell(position, CellState.Route);
+                        allCells[x, y] = new Cell(position, CellState.Route);
                         RoutesCells.Add(new Cell(position, CellState.Route));
                         break;
                     case 'R':
-                        staticCells[x, y] = new Cell(position, CellState.Rocket);
+                        allCells[x, y] = new Cell(position, CellState.Rocket);
+                        rocketPos = new CellCoordinatesArray(x, y);
+                        Rocket = new Rocket(500, new Vector2(position.X, position.Y));
                         break;
                     case 'T':
-                        staticCells[x, y] = new TowerCell(position, CellState.TowerCellFree);
-                        towerCells.Add(new TowerCell(position, CellState.TowerCellFree));
+                        var towerCell = new TowerCell(position, CellState.TowerCellFree, new CellCoordinatesArray(x, y));
+                        allCells[x, y] = towerCell;
+                        towerCells.Add(towerCell);
                         break;
                     default:
-                        staticCells[x, y] = new Cell(position, CellState.Wall);
+                        allCells[x, y] = new Cell(position, CellState.Wall);
                         break;
                 }
             }
-
-        return new Field(staticCells, towerCells);
+        AllCells = allCells;
+        TowerCells = towerCells;
     }
 }
 

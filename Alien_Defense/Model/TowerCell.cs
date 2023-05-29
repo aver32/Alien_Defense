@@ -8,12 +8,18 @@ using System.Threading.Tasks;
 
 namespace Alien_Defense.Model
 {
-    internal class TowerCell : Cell
+    /// <summary>
+    /// Класс для клетки которая может хранить башню
+    /// </summary>
+    public class TowerCell : Cell
     {
-        public Tower Tower;
-        public TowerCell(Rectangle pos, CellState state, Tower tower = null) 
+        public ITower Tower;
+        public bool MouseOnCell = false;
+        public readonly CellCoordinatesArray CellCoordinatesArray;
+        public TowerCell(Rectangle pos, CellState state, CellCoordinatesArray cellCoordinatesArray, ITower tower = null)
             : base(pos, state)
         {
+            CellCoordinatesArray = cellCoordinatesArray;
             Tower = tower;
         }
     }

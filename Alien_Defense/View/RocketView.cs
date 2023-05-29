@@ -11,38 +11,39 @@ using System.Threading.Tasks;
 namespace Alien_Defense.View
 {
     /// <summary>
-    /// Класс отображения пришельца
+    /// Класс отображения ракеты
     /// </summary>
-    internal class AlienView : IEnemyView
+    public class RocketView : IEnemyView
     {
-        public Texture2D AlienTexture { get; private set; }
-        private string _assetAlienName = "alien";
+        private Texture2D _rocket;
+        private string _assetRocketName = "rocket";
         public Texture2D HealthbarTexture { get; private set; }
         private string _assetHealthbarName = "healthbar";
+
         /// <summary>
         /// Метод загрузки контента
         /// </summary>
         /// <param name="content"> контент менеджер</param>
         public void LoadContent(ContentManager content)
         {
-            AlienTexture = content.Load<Texture2D>(_assetAlienName);
+            _rocket = content.Load<Texture2D>(_assetRocketName);
             HealthbarTexture = content.Load<Texture2D>(_assetHealthbarName);
         }
         /// <summary>
-        /// Метод отрисовки пришельца
+        /// Метод отрисовки
         /// </summary>
         /// <param name="spriteBatch"> Кисть </param>
-        /// <param name="alienPos"> Позиция пришельца </param>
-        public void Draw(SpriteBatch spriteBatch, PositionBase alienPos)
+        /// <param name="rocketPosBase"> ракета </param>
+        public void Draw(SpriteBatch spriteBatch, PositionBase rocketPosBase)
         {
-            spriteBatch.Draw(AlienTexture, alienPos.PositionBas, Color.White);
-
-            var alien = alienPos as GreenAlien;
-            if (alien == null) return;
-            var alienHealth = alien.Health;
-            var healtbarWidth = (alienHealth / alien.MaxHealth) * HealthbarTexture.Width;
-            var healthbarRect = new Rectangle((int)alienPos.PositionBas.X,
-                (int)alienPos.PositionBas.Y - AlienTexture.Height / 2,
+            spriteBatch.Draw(_rocket, rocketPosBase.PositionBas, Color.White);
+            var rock = rocketPosBase as Rocket;
+            if (rock == null) return;
+            
+            var rockHealth = rock.Health;
+            var healtbarWidth = (rockHealth / rock.MaxHealth) * HealthbarTexture.Width;
+            var healthbarRect = new Rectangle((int)rocketPosBase.PositionBas.X,
+                (int)rocketPosBase.PositionBas.Y - _rocket.Height / 4,
                 (int)healtbarWidth,
                 HealthbarTexture.Height);
             if (healtbarWidth <= HealthbarTexture.Width / 2)
