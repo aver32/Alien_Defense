@@ -22,7 +22,7 @@ public class Field
     public List<ICell> RoutesCells = new List<ICell>();
     public CellCoordinatesArray initAlienPos;
     public int cellSpriteSize = 64;
-    private string levelFilePath = "Maps\\";
+    //private string levelFilePath = "Maps\\";
     public Rocket Rocket;
     public CellCoordinatesArray rocketPos;
     public Field(string lvlName)
@@ -35,10 +35,8 @@ public class Field
     /// <param name="mapName"> названия файла </param>
     public void FromText(string mapName)
     {
-        var text = File.ReadAllText(@"..\..\..\Maps\" + mapName + ".txt");
-        //mapName = levelFilePath + mapName + ".txt";
-        //var text = File.ReadAllText(mapName);
-        var lines = text.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        var textFromFile = File.ReadAllText(@"..\..\..\Maps\" + mapName + ".txt");
+        var lines = textFromFile.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
         FromLines(lines);
     }
     /// <summary>
