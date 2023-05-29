@@ -11,28 +11,29 @@ using System.Threading.Tasks;
 namespace Alien_Defense.View
 {
     /// <summary>
-    /// Класс отображения заднего фона
+    /// Класс отображения пули
     /// </summary>
-    public class BackgroundView
+    internal class BulletView : IEnemyView
     {
-        public Texture2D BackgroundTexture { get;private set; }
-        private string _assetName = "back";
+        public Texture2D _bulletTexture { get; private set; }
+        private string _assetBulletName = "fireball";
+
         /// <summary>
         /// Метод загрузки контента
         /// </summary>
         /// <param name="content"> контент менеджер</param>
         public void LoadContent(ContentManager content)
         {
-            BackgroundTexture = content.Load<Texture2D>(_assetName);
+            _bulletTexture = content.Load<Texture2D>(_assetBulletName);
         }
         /// <summary>
-        /// Метод отрисовки заднего фона
+        /// Метод отрисовки пули
         /// </summary>
         /// <param name="spriteBatch"> Кисть </param>
-        /// <param name="graphicsDevice"> Графический девайс</param>
-        public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        /// <param name="bulletPosBase"> пуля </param>
+        public void Draw(SpriteBatch spriteBatch, PositionBase bulletPosBase)
         {
-            spriteBatch.Draw(BackgroundTexture, graphicsDevice.Viewport.Bounds, Color.White);
+            spriteBatch.Draw(_bulletTexture, bulletPosBase.PositionBas, Color.White);
         }
     }
 }

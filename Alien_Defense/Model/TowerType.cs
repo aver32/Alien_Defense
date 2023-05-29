@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Alien_Defense.Model
 {
-    public enum CellState
+    /// <summary>
+    /// Enum для типа башни
+    /// </summary>
+    public enum TowerType
     {
-        Wall,
-        TowerCellFree,
-        TowerCellOcup,
-        Rocket,
-        Route
+        None,
+        Fire,
+        Inferno
     }
 }

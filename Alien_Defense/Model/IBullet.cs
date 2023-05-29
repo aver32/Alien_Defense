@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 namespace Alien_Defense.Model
 {
     /// <summary>
-    /// интерфейс для клетки
+    /// интерфейс для пули
     /// </summary>
-    public interface ICell
+    internal interface IBullet
     {
-        public Rectangle Rectangle { get; set; }
-
-        public CellState State { get; set; }
+        public Vector2 _position { get;set; }
+        public int Damage { get; set; }
     }
 }

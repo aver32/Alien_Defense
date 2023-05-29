@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,11 @@ using System.Threading.Tasks;
 namespace Alien_Defense.Model
 {
     /// <summary>
-    /// интерфейс для клетки
+    /// Абстрактный метод позиции для обобщения метода Draw
     /// </summary>
-    public interface ICell
+    public abstract class PositionBase
     {
-        public Rectangle Rectangle { get; set; }
+        public abstract Vector2 PositionBas { get; internal set; }
 
-        public CellState State { get; set; }
     }
 }
