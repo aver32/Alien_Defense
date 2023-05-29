@@ -16,7 +16,7 @@ namespace Alien_Defense.View
     public class BackgroundView
     {
         public Texture2D BackgroundTexture { get;private set; }
-        private string _assetName = "back";
+        private string _assetName = "background";
         /// <summary>
         /// Метод загрузки контента
         /// </summary>
