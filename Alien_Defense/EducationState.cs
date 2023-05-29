@@ -69,12 +69,14 @@ namespace Alien_Defense
             var message5 = "Стоимости башни";
             var message6 = "Количестве пришельцев в последней клетке перед ракетой";
             var message7 = "Вы победите, если убьете всех пришельцев, до того как они сломают ракету";
-            var message8 = "Удачи!!";
+            var message8 = "Чтобы выбрать нужную башню, нажмите на кнопку справа от игрового поля";
+            var message9 = "Выйти из игры можно по нажатию на esc";
+            var message10 = "Удачи!!";
 
             var messages = new List<string>()
             {
                 message1, message2, message3, message4, message5, message6,
-                message7, message8
+                message7, message8, message9, message10
             };
 
             var position = new Vector2(5, 0);
